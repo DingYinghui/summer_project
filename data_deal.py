@@ -40,16 +40,21 @@ def main():
         dff = read_file(file_name)
         df=pd.merge(df, dff, on=['Date'], how='left')
     # print df.shape
-    df.to_csv('result.csv', index=None, header=new_headers)
+    df.to_csv(path+'result.csv', index=None, header=new_headers)
 
 
 def test():
-    df1 = pd.read_csv(path+'AAPL.csv', header=0)
-    df2 = pd.read_csv(path+'ABT.csv', header=0)
-    print df1.merge(df2, left_on='Date', right_on='Date',how='outer')
+    file_name = get_file_name_list(path)
+    file_num = len(file_name)
+    print file_num
+    for file in file_name:
+        with open(path+file) as f:
+            ll = len(f.readlines())
+            if ll != 5286:
+                print file
 
 
 if __name__ == '__main__':
-    #get_file_name_list(path)
+    # get_file_name_list(path)
     main()
-    #test()
+    # test()
